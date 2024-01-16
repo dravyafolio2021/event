@@ -1,4 +1,4 @@
-import { SignIn, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -21,11 +21,11 @@ const Header = () => {
             />
           </Link>
 
-              <SignedIn>
-              <nav className="md:flex-between hidden w-full max-w-xs">
-                <NavItems />
-              </nav>
-            </SignedIn>
+          <SignedIn>
+            <nav className="md:flex-between hidden w-full max-w-xs">
+              <NavItems />
+            </nav>
+          </SignedIn>
           <div className="flex w-32 justify-end items-center gap-3">
             <SignedIn>
               <UserButton afterSignOutUrl="/" />

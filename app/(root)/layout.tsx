@@ -1,6 +1,6 @@
-import Footer from "@/components/shared/Footer";
-import Header from "@/components/shared/Header";
-import { Poppins } from "next/font/google";
+import Footer from "@/app/components/shared/Footer";
+import Header from "@/app/components/shared/Header";
+// import { Poppins } from "next/font/google";
 
 // const poppins = Poppins({
 //   subsets: ["latin"],
