@@ -1,4 +1,5 @@
-import { Button } from "@/app/components/ui/button";
+// import { Button } from "@/app/components/ui/button";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -33,13 +34,13 @@ export default function Home() {
           />
         </div>
 
-        <section id="events">
+        {/* <section id="events">
           <h2 className="">THoushands Of Events</h2>
           <div className="">
             Search 
             Category Filter will be added
           </div>
-        </section>
+        </section> */}
       </section>
     </>
   );
