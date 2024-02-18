@@ -1,6 +1,9 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
+import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
+import { clerkClient } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -64,11 +67,68 @@ export async function POST(req: Request) {
       last_name: last_name,
       photo: image_url,
     };
+
+    // creating a new user in the Database
+    const newUser = await createUser(user);
+    if (newUser) {
+      await clerkClient.users.updateUserMetadata(id, {
+        publicMetadata: {
+          userId: newUser._id,
+        },
+      });
+    }
+    return NextResponse.json({ message: "Okay success", user: newUser });
   }
 
-  //   creating a new user in the Database
-  // const newUser = await createSecureServer(user);
+  if (eventType === "user.updated") {
+    const { id, email_addresses, image_url, first_name, last_name, username } =
+      evt.data;
 
+    const user = {
+      // clerkId: id,
+      // email: email_addresses[0].email_address,
+      firstName: first_name,
+      lastName: last_name,
+      username: username!,
+      photo: image_url,
+    };
+
+    const updatedUser = await updateUser(id, user);
+    // if (newUser) {
+    //   await clerkClient.users.updateUserMetadata(id, {
+    //     publicMetadata: {
+    //       userId: newUser._id,
+    //     },
+    //   });
+    // }
+    return NextResponse.json({ message: "Okay success", user: updatedUser });
+  }
+
+  if (eventType === "user.deleted") {
+    // const { id, email_addresses, image_url, first_name, last_name, username } =
+    //   evt.data;
+
+      const { id } = evt.data
+    // const user = {
+    //   clerkId: id,
+    //   email: email_addresses[0].email_address,
+    //   username: username,
+    //   first_name: first_name,
+    //   last_name: last_name,
+    //   photo: image_url,
+    // };
+
+
+    const deletedUser = await deleteUser(user);
+    // if (newUser) {
+    //   await clerkClient.users.updateUserMetadata(id, {
+    //     publicMetadata: {
+    //       userId: newUser._id,
+    //     },
+    //   });
+    // }
+    return NextResponse.json({ message: "Okay success", user: deletedUser });
+  }
 
   return new Response("", { status: 200 });
 }
