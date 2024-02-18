@@ -1,14 +1,14 @@
 // ======================== USER PARAMS ========================
 
-// in this file and "app\api\webhooks\clerk\route.ts" we can see that what type
-//  we are exporting with each segment, is being marked/used to pass to backend in the routes file
+// in this 'file' and "app\api\webhooks\clerk\route.ts" we can see that what type
+// we are exporting with each segment, is being marked/used to pass to backend in the routes file
 
 // Parameters for creating a new user
 export type CreateUserParams = {
-  clerkId: string; // Identifier for the clerk creating the user
+  clerkID: string; // Identifier for the clerk creating the user
   firstName: string; // User's first name
   lastName: string; // User's last name
-  username: string; // User's username
+  username: string | null; // User's username
   email: string; // User's email address
   photo: string; // URL of the user's profile photo
 };

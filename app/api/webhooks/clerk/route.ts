@@ -55,16 +55,41 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
+  // if (eventType === "user.created") {
+  //   const { id, email_addresses, image_url, first_name, last_name, username } =
+  //     evt.data;
+
+  //   const user = {
+  //     clerkId: id,
+  //     email: email_addresses[0].email_address,
+  //     username: username,
+  //     first_name: first_name,
+  //     last_name: last_name,
+  //     photo: image_url,
+  //   };
+
+  //   // creating a new user in the Database
+  //   const newUser = await createUser(user);
+  //   if (newUser) {
+  //     await clerkClient.users.updateUserMetadata(id, {
+  //       publicMetadata: {
+  //         userId: newUser._id,
+  //       },
+  //     });
+  //   }
+  //   return NextResponse.json({ message: "Okay success", user: newUser });
+  // }
+
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, first_name, last_name, username } =
       evt.data;
 
     const user = {
-      clerkId: id,
+      clerkID: id,
       email: email_addresses[0].email_address,
-      username: username,
-      first_name: first_name,
-      last_name: last_name,
+      username: username, // Make sure this matches the property name in CreateUserParams
+      firstName: first_name, // Corrected property name to match UserSchema
+      lastName: last_name, // Corrected property name to match UserSchema
       photo: image_url,
     };
 
@@ -108,7 +133,7 @@ export async function POST(req: Request) {
     // const { id, email_addresses, image_url, first_name, last_name, username } =
     //   evt.data;
 
-      const { id } = evt.data
+    const { id } = evt.data;
     // const user = {
     //   clerkId: id,
     //   email: email_addresses[0].email_address,
@@ -117,7 +142,6 @@ export async function POST(req: Request) {
     //   last_name: last_name,
     //   photo: image_url,
     // };
-
 
     const deletedUser = await deleteUser(user);
     // if (newUser) {
