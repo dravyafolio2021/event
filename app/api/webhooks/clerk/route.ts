@@ -143,7 +143,7 @@ export async function POST(req: Request) {
     //   photo: image_url,
     // };
 
-    const deletedUser = await deleteUser(user);
+    const deletedUser = await deleteUser(id!);
     // if (newUser) {
     //   await clerkClient.users.updateUserMetadata(id, {
     //     publicMetadata: {
